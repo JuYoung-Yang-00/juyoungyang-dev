@@ -1,0 +1,128 @@
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.7); 
+}
+.modal-content {
+    background-color: #fff;
+    opacity: 0.9;
+    overflow-y: auto; 
+    padding: 20px;
+    padding-left: 5rem;
+    padding-right: 5rem;
+    border-radius: 5px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); 
+    border-radius: 10px;
+    width: 65%;
+    height: 75%;
+    margin: auto;
+    position: relative;
+    top:41%;
+    transform: translateY(-50%);
+}
+@media (max-width: 720px) {
+    .modal-content{
+        width: 90%;
+        padding: 20px;
+    }
+}
+.modal-content h3{
+    font-size: 2rem;
+    padding-bottom: 2rem;
+    padding-top: 1rem;
+    text-align: center;
+}
+.modal-content h4{
+    font-size: 1.4rem;
+    padding-top: 2rem;
+    padding-bottom: 1.5rem;
+    text-align: center;
+}
+.modal-content ul{
+    font-size: 0.9rem;
+}
+.modal-content ul li{
+    padding-bottom: 10px;
+}
+.modal-description {
+    font-size: 1rem;
+    padding-bottom: 20px;
+}
+.modal-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 20px;
+}
+.modal-close:hover {
+    color: #686868; 
+    transform: translateY(-1px); 
+}
+.modal-close:active {
+    color: #101010;  
+}
+#projects.modal-active {
+    filter: blur(5px);
+    pointer-events: none;
+    user-select: none;
+}
+.project-icons-modal {
+    display: flex;
+    justify-content: center;
+    gap: 10px; 
+    margin: 20px 0;
+}
+.github-link {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+.modal-icons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem; 
+    padding-bottom: 10px;
+    align-items: center;
+}
+.modal-icon {
+    width: 40px; 
+    border-radius: 50%; 
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1); 
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.modal-icons img:hover {
+    transform: translateY(-3px); 
+    box-shadow: 4px 5px 7px rgba(0, 0, 0, 0.3); 
+}
+.modal-MongoDBIcon {
+    width: 42px !important;
+}
+.modal-OpenAIIcon {
+    width: 50px !important;
+}
+.modal-PytorchIcon {
+    width: 37px !important;
+}
+.modal-NextIcon {
+    width: 38px !important;
+}
+.github-link img{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%; 
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1); 
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.github-link img:hover {
+    transform: translateY(-3px); 
+    box-shadow: 4px 5px 7px rgba(0, 0, 0, 0.3); 
+}

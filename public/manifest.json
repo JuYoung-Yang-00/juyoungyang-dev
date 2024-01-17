@@ -1,0 +1,15 @@
+{
+  "short_name": "JYY.DEV",
+  "name": "JYY.DEV",
+  "icons": [
+    {
+      "src": "%PUBLIC_URL%/logo2.png",
+      "sizes": "50x50",  
+      "type": "image/png"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
