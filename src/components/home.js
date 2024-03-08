@@ -19,7 +19,7 @@ function Home() {
                     <TypingAnimation /> 
                     <div className="external-link-container">
                         <div className='to-resume'>
-                            <a href="https://drive.google.com/file/d/1u8M_PvPomk0TvB79zDL2HcaC-Er3rmZN/view?usp=sharing" target="_blank" rel="noopener noreferrer">
+                            <a href="https://juyoung-yang-00.github.io/CV/Ju%20Young%20Yang_CV.pdf" target="_blank" rel="noopener noreferrer">
                                 <button>Resume</button>
                             </a>
                         </div>

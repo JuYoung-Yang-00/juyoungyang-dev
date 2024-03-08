@@ -59,10 +59,10 @@ function Projects() {
                                 to minimize passenger wait and travel time and maximize driver profit. 
                             </p>
                             <section className="project-buttons">
-                                <a href="https://google.com" target="_blank" rel="noopener noreferrer">
-                                    <img src={link_svg} alt="Linkedin Icon" />
-                                </a>
-                                <a href="google.com" target="_blank" rel="noopener noreferrer">
+                                {/* <a href="https://apple.com" target="_blank" rel="noopener noreferrer">
+                                    <img src={link_svg} alt="Link Icon" />
+                                </a> */}
+                                <a href="https://github.com/JuYoung-Yang-00/case-study-Not-Uber" target="_blank" rel="noopener noreferrer">
                                     <img src={github_svg} alt="Github Icon" />
                                 </a>
                             </section>
@@ -95,10 +95,10 @@ function Projects() {
                                 fine-tuned with custom training and validation dataset to enhance data consistency and summarization quality.
                             </p>
                             <section className="project-buttons">
-                                <a href="https://google.com" target="_blank" rel="noopener noreferrer">
-                                    <img src={link_svg} alt="Linkedin Icon" />
-                                </a>
-                                <a href="google.com" target="_blank" rel="noopener noreferrer">
+                                {/* <a href="https://google.com" target="_blank" rel="noopener noreferrer">
+                                    <img src={link_svg} alt="Link Icon" />
+                                </a> */}
+                                <a href="https://github.com/JuYoung-Yang-00/earthstreetjournal" target="_blank" rel="noopener noreferrer">
                                     <img src={github_svg} alt="Github Icon" />
                                 </a>
                             </section>
@@ -132,10 +132,10 @@ function Projects() {
                             </p>
 
                             <section className="project-buttons">
-                                <a href="https://google.com" target="_blank" rel="noopener noreferrer">
-                                    <img src={link_svg} alt="Linkedin Icon" />
-                                </a>
-                                <a href="google.com" target="_blank" rel="noopener noreferrer">
+                                {/* <a href="https://google.com" target="_blank" rel="noopener noreferrer">
+                                    <img src={link_svg} alt="Link Icon" />
+                                </a> */}
+                                <a href="https://github.com/wgdevworld/bulk-buy-buddies" target="_blank" rel="noopener noreferrer">
                                     <img src={github_svg} alt="Github Icon" />
                                 </a>
                             </section>
@@ -165,13 +165,13 @@ function Projects() {
                             <p>
                                 MID-FiLD is a research paper I worked on with ML Team at POZalabs. MID-FiLD aims to enhance 
                                 dynamics in music generation by using annotated data (cc#1 value in the modulation wheel).
-                                I conducted EDA and valence mood classification task using SVM. Paper is accepted to AAAI 2024.
+                                I conducted EDA and valence mood classification task using SVM. Paper is accepted to AAAI 2023.
                             </p>
                             <section className="project-buttons">
-                                <a href="https://google.com" target="_blank" rel="noopener noreferrer">
-                                    <img src={link_svg} alt="Linkedin Icon" />
+                                <a href="https://juyoung-yang-00.github.io/paper/MID-FiLD.pdf" target="_blank" rel="noopener noreferrer">
+                                    <img src={link_svg} alt="Link Icon" />
                                 </a>
-                                <a href="google.com" target="_blank" rel="noopener noreferrer">
+                                <a href="https://github.com/JuYoung-Yang-00/MID-FiLD_demo" target="_blank" rel="noopener noreferrer">
                                     <img src={github_svg} alt="Github Icon" />
                                 </a>
                             </section>
@@ -205,10 +205,10 @@ function Projects() {
                                 accuracy was improved by 7.5% from 64.9% to 72.4% by using PCA to reduce dimensionality.
                             </p>
                             <section className="project-buttons">
-                                <a href="https://google.com" target="_blank" rel="noopener noreferrer">
-                                    <img src={link_svg} className='lnkdin_icon' alt="Linkedin Icon" />
+                                <a href="https://juyoung-yang-00.github.io/paper/S&P500vsCrypto.pdf" target="_blank" rel="noopener noreferrer">
+                                    <img src={link_svg} className='Link' alt="Linkedin Icon" />
                                 </a>
-                                <a href="google.com" target="_blank" rel="noopener noreferrer">
+                                <a href="https://github.com/JuYoung-Yang-00/stock_bitcoin" target="_blank" rel="noopener noreferrer">
                                     <img src={github_svg} className="github_icon" alt="Github Icon" />
                                 </a>
                             </section>
@@ -242,10 +242,10 @@ function Projects() {
                                 studying relevant literatures on topics including RetNET, Mamba, and RoPE.
                             </p>
                             <section className="project-buttons">
-                                <a href="https://google.com" target="_blank" rel="noopener noreferrer">
-                                    <img src={link_svg} alt="Linkedin Icon" />
-                                </a>
-                                <a href="google.com" target="_blank" rel="noopener noreferrer">
+                                {/* <a href="https://github.com/Collaborative-AI" target="_blank" rel="noopener noreferrer">
+                                    <img src={link_svg} alt="Link Icon" />
+                                </a> */}
+                                <a href="https://github.com/Collaborative-AI" target="_blank" rel="noopener noreferrer">
                                     <img src={github_svg} alt="Github Icon" />
                                 </a>
                             </section>
