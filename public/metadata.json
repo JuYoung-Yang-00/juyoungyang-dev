@@ -1,0 +1,52 @@
+[
+    {
+      "id": "240306",
+      "title": "Test, Train, & Validation Dataset",
+      "subtitle": "Understanding the basics of dataset splitting",
+      "category": "AI & ML",
+      "date": "2024-03-06",
+      "image": "/images/240306/data-splitting.png"
+    },
+    {
+      "id": "240305",
+      "title": "This is a Post",
+      "subtitle": "More blog posts coming soon...",
+      "category": "AI & ML",
+      "date": "2024-03-05",
+      "image": "/images/240305/computer.png"
+    },
+    {
+        "id": "240304",
+        "title": "This is an Example",
+        "subtitle": "More blog posts coming soon...",
+        "category": "Programming",
+        "date": "2024-03-04",
+        "image": "/images/240305/computer.png"
+      },
+      {
+        "id": "240303",
+        "title": "This is a Test",
+        "subtitle": "More blog posts coming soon...",
+        "category": "Programming",
+        "date": "2024-03-03",
+        "image": "/images/240305/computer.png"
+      },
+      {
+        "id": "240302",
+        "title": "This is a Post",
+        "subtitle": "More blog posts coming soon...",
+        "category": "Random",
+        "date": "2024-03-02",
+        "image": "/images/240305/computer.png"
+      },
+      {
+        "id": "240301",
+        "title": "This is an Example",
+        "subtitle": "More blog posts coming soon...",
+        "category": "Random",
+        "date": "2024-03-01",
+        "image": "/images/240305/computer.png"
+      }
+
+  ]
+  
