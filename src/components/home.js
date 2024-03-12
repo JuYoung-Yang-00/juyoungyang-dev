@@ -15,7 +15,7 @@ function Home() {
                 <div className="home-content">
                     <h1>Hi There!</h1>
                     <h1>I'm Justin Yang</h1>
-                    <p>Open to Full-time Opportunities</p>
+                    <p>I am currently going through updates for my portfolio! (March 2024) </p>
                     <TypingAnimation /> 
                     <div className="external-link-container">
                         <div className='to-resume'>

@@ -9,4 +9,3 @@ Checkout my [blog](https://juyoungyang.dev/blog) as well!
 - Portfolio is built with JavaScript (React, Node.js)
 - Server is hosted using AWS EC2 and Elastic Beanstalk
 - Frontend is hosted on Hostinger
-- CI/CD is achieved through Hostinger & GitHub Webhook
