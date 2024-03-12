@@ -1,8 +1,15 @@
 import React, { forwardRef, useState, useEffect, useRef } from 'react';
 import logo from '../assets/logo.png';
+import { Link } from 'react-router-dom'; 
 
 const Header = forwardRef((props, ref) => {
   const [selectedSection, setSelectedSection] = useState("home");
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth > 920);
+  const [lastScrollY, setLastScrollY] = useState(0);
+  const [showNav, setShowNav] = useState(true);
+
+  const menuRef = useRef();
 
   const scrollToSection = (sectionId) => {
     const section = document.getElementById(sectionId);
@@ -15,13 +22,13 @@ const Header = forwardRef((props, ref) => {
     }
   };
 
-  const menuRef = useRef();
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
         setIsMenuOpen(false);
       }
     };
+
     document.addEventListener('mousedown', handleClickOutside);
 
     return () => {
@@ -37,10 +44,6 @@ const Header = forwardRef((props, ref) => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth > 920);
-  
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
   useEffect(() => {
     const handleResize = () => {
       setIsLargeScreen(window.innerWidth > 920);
@@ -51,7 +54,9 @@ const Header = forwardRef((props, ref) => {
 
     window.addEventListener('resize', handleResize);
 
-    return () => window.removeEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
 
   useEffect(() => {
@@ -74,10 +79,24 @@ const Header = forwardRef((props, ref) => {
         if (section) observer.unobserve(section);
       });
     };
-  }, []); 
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      setShowNav(currentScrollY < lastScrollY || currentScrollY <= 0);
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [lastScrollY]);
 
   return (
-    <div id="Header" className='header-section' ref={ref}>
+    <div id="Header" className={`header-section ${showNav ? '' : 'hide-nav'}`} ref={ref}>
       <div id="Nav">
         <div className="logo-container" onClick={handleLogoClick}>
           <img src={logo} alt="Logo" className="logo" />
@@ -89,8 +108,8 @@ const Header = forwardRef((props, ref) => {
             <button onClick={() => scrollToSection("home")} className={selectedSection === "home" ? "selected" : ""}>Home</button>
             <button onClick={() => scrollToSection("about")} className={selectedSection === "about" ? "selected" : ""}>About</button>
             <button onClick={() => scrollToSection("projects")} className={selectedSection === "projects" ? "selected" : ""}>Projects</button>
-            <button onClick={() => scrollToSection("blog")} className={selectedSection === "blog" ? "selected" : ""}>Blog</button>
             <button onClick={() => scrollToSection("contact")} className={selectedSection === "contact" ? "selected" : ""}>Contact</button>
+            <Link to="/blog" className="blog-main-page-link"> Blog</Link>
           </>
         ) : (
           <>
@@ -99,11 +118,12 @@ const Header = forwardRef((props, ref) => {
             </button>
             {isMenuOpen && (
               <div className="menu-items">
+                <button className="close-menu-button" onClick={toggleMenu}>✕</button>
                 <button onClick={() => scrollToSection("home")} className={selectedSection === "home" ? "selected" : ""}>Home</button>
                 <button onClick={() => scrollToSection("about")} className={selectedSection === "about" ? "selected" : ""}>About</button>
                 <button onClick={() => scrollToSection("projects")} className={selectedSection === "projects" ? "selected" : ""}>Projects</button>
-                <button onClick={() => scrollToSection("blog")} className={selectedSection === "blog" ? "selected" : ""}>Blog</button>
                 <button onClick={() => scrollToSection("contact")} className={selectedSection === "contact" ? "selected" : ""}>Contact</button>
+                <Link to="/blog" className="menu-blog-main-page-link"> Blog</Link>
               </div>
             )}
           </>

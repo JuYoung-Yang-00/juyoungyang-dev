@@ -31,44 +31,55 @@ body {
 
 
 /* Header */
+.blog-logo {
+    width: 200px;
+    padding-top: 0px;
+    margin-left: -60px;
+  }
+.blog-logo:hover {
+    cursor: pointer;
+}
 .blog-header-section {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: #000000;
+    background-color: #00000000;
     padding: 0rem 2rem;
     font-size: 1rem;
     height: 7vh;
     width: 100%;
     position: fixed;
     z-index: 100;
-  }
-.home-link {
+    transition: transform 0.3s ease-in-out;
+}
+.hidden {
+    transform: translateY(-100%);
+}
+
+.homelink {
     font-size: 1rem;
     color: #ffffff;
     text-decoration: none;
     cursor: pointer;
     transition: color 0.1s ease;
     padding: 0.7rem 3rem;
-    background-color: #000000;
-    border: 1px solid #ffffff;
+    background-color: #00000000;
+    /* border: 1px solid #ffffff; */
     margin-left: 10px;
     margin-right: 10px;
     border-radius: 10px;
 }
-.home-link.selected,
-.home-link:hover {
-    color: #000000;
-    transform: scale(1.03);
-    background-color: #ffffff;
-}   
+.homelink:hover {
+    color: rgb(132, 132, 132);
+}
+
 @media screen and (max-width: 1300px) { 
-    .home-link {
+    .homelink {
         padding: 0.5rem 2rem;
     }
 }
 @media screen and (max-width: 920px) { 
-    .home-link {
+    .homelink {
         padding: 0.4rem 1.4rem;
     }
     .blog-header-section {

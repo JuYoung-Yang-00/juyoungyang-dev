@@ -5,9 +5,10 @@ import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 import Graph from '../components/animations/Graph';
-import PostHeader from './postheader';
+// import BlogHeader from './blogheader';
 import BlogFooter from './blogfooter';
 
+import './post.css';
 
 
 
@@ -66,7 +67,7 @@ const BlogPostTemplate = () => {
 
     <div className='blog-post-section'>
       <Graph />
-      <PostHeader />
+      {/* <BlogHeader /> */}
       <Link to="/blog" className="blog-link">←</Link>
       <div className='post-container'>
         <article className='article'>

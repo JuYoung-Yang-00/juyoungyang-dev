@@ -17,13 +17,13 @@ body {
   padding:0px;
 }
 .logo {
-  width:90px;
-  padding-top: 4px;
+  width:120px;
+  padding-top: 0px;
 }
 .logo:hover {
-  opacity:0.9;
+  /* opacity:0.9;
   transition: color 0.1s ease; 
-  transform: scale(1.01);
+  transform: scale(1.01); */
   cursor: pointer;
 }
 .section-content {
@@ -41,14 +41,19 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: rgb(255, 255, 255, 1);
+  background-color: rgba(255, 255, 255, 0);
   padding: 0 2rem;
   font-size: 1rem;
   height: 7vh;
   width: 100%;
   position: fixed;
   z-index: 100;
+  transition: transform 0.3s ease-in-out;
 }
+.hide-nav {
+  transform: translateY(-100%); 
+}
+
 .nav {
   display: flex;
   align-items: center;
@@ -59,37 +64,97 @@ body {
 }
 .nav button {
   font-size: 1rem;
-  color: #1c1c70;
+  color: #ffffff;
   text-decoration: none;
   cursor: pointer;
   transition: color 0.1s ease;
   padding: 0.7rem 3rem;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0);
   border: none;
   margin-left: 10px;
   margin-right: 10px;
   border-radius: 10px;
 }
+.nav button b{
+  color: rgb(97, 193, 237);
+}
+.blog-main-page-link {
+  text-decoration: none;
+  background-color: rgba(255, 255, 255, 0);
+  padding: 0.7rem 3rem;
+  margin-left: 10px;
+  margin-right: 10px;
+  border-radius: 50px;
+  color: #ffffff;
+  font-size: 1rem;
+}
+.blog-main-page-link:hover {
+  background-color: #5b5b9100;
+  color: rgb(132, 132, 132);
+  /* transform: scale(1.2); */
+  /* transition: all 0.2s ease; */
+}
 .nav button.selected,
 .nav button:hover {
-  color: #fff;
-  transform: scale(1.03);
-  background-color: #1c1c70;
+  color: #1c1c70;
+  /* transform: scale(1.03); */
+  background-color: #1c1c7000;
 }
 .menu-icon {
   display: none; 
   cursor: pointer;
 }
 .menu-items {
-  position: absolute;
-  top: 90%; /* Position it below the menu button */
-  right: -40%; /* Align to the right end of the screen */
-  background-color: #ffffff; /* Or any color that matches your design */
-  z-index: 300; /* Ensure it's above other content */
   display: flex;
-  flex-direction: column; /* Stack buttons vertically */
-  padding: 1rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9); 
+  z-index: 100; 
 }
+.close-menu-button {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 30px !important; 
+  background: none;
+  border: none;
+  color: #ffffff !important; /* Adjust color as needed */
+  cursor: pointer;
+}
+.close-menu-button:hover {
+  background-color: rgba(255, 255, 255, 0) !important;
+  transform: none !important;
+  text-decoration: none !important;
+}
+
+.menu-items button{
+  color: rgb(255, 255, 255) !important;
+  background-color: #00000000 !important;
+  font-size: 2rem !important;  
+}
+.menu-items button.selected,
+.menu-items button:hover {
+  text-decoration: underline;
+}
+.menu-blog-main-page-link {
+  text-decoration: none;
+  color: rgb(255, 255, 255);
+  font-size: 2rem;
+}
+.menu-blog-main-page-link.selected,
+.menu-blog-main-page-link:hover{
+  transform: scale(1.03);
+  color: rgb(132, 132, 132);
+}
+
+
+
 @media screen and (max-width: 1095px) {
   .nav button {
     font-size: 0.8rem;
@@ -187,11 +252,14 @@ body {
   letter-spacing: 0.1rem;
   color: rgb(0, 0, 0);
 }
+.home-content b {
+  font-size: 4.5rem;
+}
 .home-content p {
   font-size: 1.2rem;
   text-align: left;
   padding-bottom: 2rem;
-  color: #56c9fd;
+  color: #000000;
 }
 .home-content b {
   font-size: 1.7rem;
@@ -1206,21 +1274,7 @@ body {
 .blog-post-container a {
   text-decoration: none;
 }
-.blog-main-page-link {
-  text-decoration: none;
-  margin-top: 2rem;
-  background-color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 50px;
-  color: #1c1c70;
-  font-size: 1rem;
-}
-.blog-main-page-link:hover {
-  background-color: #1c1c70;
-  color: white;
-  transform: scale(1.1);
-  transition: all 0.2s ease;
-}
+
 @media screen and (max-width: 1057px) {
   .blog-preview-container {
     width: 50rem;
@@ -1359,7 +1413,8 @@ body {
   flex-direction: column;
   width: 100vw;
   height: auto;
-  background-color: black;
+  /* background-color: black; */
+  background: linear-gradient(to bottom, #020229, #000000);
   justify-content: center;
   align-items: center;
 }
