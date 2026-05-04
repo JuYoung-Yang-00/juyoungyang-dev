@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { JetBrains_Mono, Instrument_Serif } from "next/font/google";
+import { JetBrains_Mono, Rubik } from "next/font/google";
 import "./globals.css";
 
 const mono = JetBrains_Mono({
@@ -8,11 +8,11 @@ const mono = JetBrains_Mono({
   weight: ["400", "500", "600"],
 });
 
-const serif = Instrument_Serif({
-  variable: "--font-serif",
+// Game-feel display + body font: rounded-geometric, plenty of weight range
+const display = Rubik({
+  variable: "--font-display",
   subsets: ["latin"],
-  weight: "400",
-  style: ["normal", "italic"],
+  weight: ["400", "500", "600", "700", "800", "900"],
 });
 
 export const metadata: Metadata = {
@@ -27,7 +27,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${mono.variable} ${serif.variable} antialiased`}>
+      <body className={`${mono.variable} ${display.variable} antialiased`}>
         {children}
       </body>
     </html>

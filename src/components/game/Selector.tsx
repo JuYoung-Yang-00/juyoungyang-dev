@@ -20,7 +20,9 @@ export default function Selector() {
         {/* Fog matched to sky color — fades the distant water + clouds into the
             sky, eliminating the hard horizon edge. The visible horizon now
             emerges as a soft gradient where water depth → atmospheric haze. */}
-        <fog attach="fog" args={["#a8dcef", 25, 80]} />
+        {/* Tighter fog so distant ocean fades to sky before reaching the
+            tile boundary, regardless of viewport aspect ratio. */}
+        <fog attach="fog" args={["#a8dcef", 22, 65]} />
 
         {/* Neutral white lighting so KayKit textures render true colors */}
         <ambientLight intensity={0.6} />

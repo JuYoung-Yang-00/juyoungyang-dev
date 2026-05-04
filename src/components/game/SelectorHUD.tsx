@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { useGameStore } from "@/lib/game/store";
 import { ISLANDS } from "@/lib/game/islands";
 
@@ -9,13 +8,6 @@ const PANEL_BORDER = "1px solid rgba(255,255,255,0.12)";
 
 export default function SelectorHUD() {
   const hoveredId = useGameStore((s) => s.hoveredIslandId);
-  const [time, setTime] = useState(() => fmtTime(new Date()));
-
-  useEffect(() => {
-    const id = setInterval(() => setTime(fmtTime(new Date())), 1000);
-    return () => clearInterval(id);
-  }, []);
-
   const hovered = ISLANDS.find((i) => i.id === hoveredId);
 
   return (
@@ -26,91 +18,27 @@ export default function SelectorHUD() {
         fontFamily: "var(--font-mono), ui-monospace, monospace",
       }}
     >
-      {/* Top-left — breadcrumb pill */}
+      {/* Top-left — title pill */}
       <div
-        className="absolute top-4 left-4 flex items-center gap-2 text-[10px] tracking-[0.06em] px-3 py-2 rounded-md"
+        className="absolute top-4 left-4 px-5 py-3 rounded-md"
         style={{
-          color: "#cce4f5",
           background: PANEL_BG,
           border: PANEL_BORDER,
           backdropFilter: "blur(8px)",
         }}
       >
-        <span
-          className="inline-block w-3 h-3"
-          style={{ background: "#e8a846", borderRadius: 1 }}
-        />
-        <span style={{ color: "#ffffff" }}>juyoungyang.dev</span>
-        <span style={{ color: "#5d8aae" }}>/</span>
-        <span
+        <div
           style={{
-            fontFamily: "var(--font-serif), serif",
-            fontStyle: "italic",
-            fontSize: 14,
-            letterSpacing: "-0.01em",
-          }}
-        >
-          select a destination
-        </span>
-      </div>
-
-      {/* Top-right — clock pill */}
-      <div
-        className="absolute top-4 right-4 flex items-center gap-2 text-[10px] tracking-[0.06em] px-3 py-2 rounded-md"
-        style={{
-          color: "#cce4f5",
-          background: PANEL_BG,
-          border: PANEL_BORDER,
-          backdropFilter: "blur(8px)",
-        }}
-      >
-        <span
-          style={{
+            fontFamily: "var(--font-display), system-ui, sans-serif",
+            fontWeight: 900,
+            fontSize: 22,
+            lineHeight: 1,
+            letterSpacing: "-0.02em",
             color: "#ffffff",
-            fontVariantNumeric: "tabular-nums slashed-zero",
+            textTransform: "uppercase",
           }}
         >
-          {time}
-        </span>
-        <span style={{ color: "#5d8aae" }}>·</span>
-        <span>CDT · CHI</span>
-      </div>
-
-      {/* Title block — Justin */}
-      <div
-        className="absolute top-1/2 left-10 -translate-y-1/2 px-7 py-6 rounded-lg max-w-[440px]"
-        style={{
-          background: PANEL_BG,
-          border: PANEL_BORDER,
-          backdropFilter: "blur(10px)",
-        }}
-      >
-        <div
-          className="text-[10px] tracking-[0.14em] mb-3"
-          style={{ color: "#9bbcd6" }}
-        >
-          PORTFOLIO · 2026
-        </div>
-        <div
-          style={{
-            fontFamily: "var(--font-serif), serif",
-            fontStyle: "italic",
-            fontSize: 56,
-            lineHeight: 0.96,
-            letterSpacing: "-0.025em",
-            color: "#ffffff",
-          }}
-        >
-          Ju Young
-          <br />
-          (Justin) Yang
-        </div>
-        <div
-          className="mt-4 text-[12px] leading-[1.7]"
-          style={{ color: "#cce4f5" }}
-        >
-          Software engineer. Pick a destination to explore — each island is a
-          chapter of work I&rsquo;ve shipped.
+          Justin Yang
         </div>
       </div>
 
@@ -165,12 +93,13 @@ export default function SelectorHUD() {
           <div
             className="mb-2"
             style={{
-              fontFamily: "var(--font-serif), serif",
-              fontStyle: "italic",
-              fontSize: 36,
+              fontFamily: "var(--font-display), system-ui, sans-serif",
+              fontWeight: 800,
+              fontSize: 32,
               lineHeight: 1,
-              letterSpacing: "-0.02em",
+              letterSpacing: "-0.03em",
               color: "#ffffff",
+              textTransform: "uppercase",
             }}
           >
             {hovered.title}
@@ -182,11 +111,4 @@ export default function SelectorHUD() {
       )}
     </div>
   );
-}
-
-function fmtTime(d: Date) {
-  const hh = String(d.getHours()).padStart(2, "0");
-  const mm = String(d.getMinutes()).padStart(2, "0");
-  const ss = String(d.getSeconds()).padStart(2, "0");
-  return `${hh}:${mm}:${ss}`;
 }

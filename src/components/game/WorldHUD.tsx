@@ -54,14 +54,15 @@ export default function WorldHUD({ island }: { island: IslandDef }) {
         <span style={{ color: "#5a5854" }}>/</span>
         <span
           style={{
-            fontFamily: "var(--font-serif), serif",
-            fontStyle: "italic",
-            fontSize: 14,
-            letterSpacing: "-0.01em",
+            fontFamily: "var(--font-display), system-ui, sans-serif",
+            fontWeight: 700,
+            fontSize: 13,
+            letterSpacing: "-0.005em",
             color: "#e8e6df",
+            textTransform: "uppercase",
           }}
         >
-          {island.title.toLowerCase()}
+          {island.title}
         </span>
       </div>
 

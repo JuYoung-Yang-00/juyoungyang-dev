@@ -4,6 +4,7 @@ import { useMemo } from "react";
 import { useGLTF } from "@react-three/drei";
 import SelectorIsland from "./SelectorIsland";
 import SelectorCamera from "./SelectorCamera";
+import OceanField from "./OceanField";
 import { CLOUD_PATHS, ISLANDS } from "@/lib/game/islands";
 
 CLOUD_PATHS.forEach((p) => useGLTF.preload(p));
@@ -46,27 +47,18 @@ function CloudInstance({
 function Water() {
   return (
     <>
-      {/* Deep ocean — fog blends its far edge into the sky color, so the
-          horizon becomes a soft gradient instead of a hard line */}
-      <mesh receiveShadow position={[0, -0.4, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-        <planeGeometry args={[300, 300]} />
+      {/* Deep ocean backdrop — sits well below the chunky hex water tiles
+          so they read as floating-on-water instead of merging into a sheet.
+          Darker shade for contrast against the royal-blue hex tiles. */}
+      <mesh receiveShadow position={[0, -0.6, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+        <planeGeometry args={[1200, 1200]} />
         <meshStandardMaterial
-          color="#1f6da0"
+          color="#061321"
           roughness={0.5}
           metalness={0.2}
         />
       </mesh>
 
-      {/* Lighter shallow-water halos around the archipelago */}
-      <mesh position={[0, -0.39, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-        <ringGeometry args={[14, 18, 96]} />
-        <meshBasicMaterial color="#3f9ccc" transparent opacity={0.55} />
-      </mesh>
-
-      <mesh position={[0, -0.385, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-        <ringGeometry args={[10, 14, 96]} />
-        <meshBasicMaterial color="#5cb1de" transparent opacity={0.45} />
-      </mesh>
     </>
   );
 }
@@ -75,6 +67,7 @@ export default function SelectorScene() {
   return (
     <>
       <Water />
+      <OceanField />
 
       {ISLANDS.map((island) => (
         <SelectorIsland key={island.id} {...island} />

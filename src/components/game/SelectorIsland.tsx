@@ -110,6 +110,7 @@ export default function SelectorIsland({
   buildingOffset = [0, 0, 0],
   tiles = [],
   decorations,
+  signOffset,
 }: IslandDef) {
   const groupRef = useRef<Group>(null!);
   const [hovered, setHovered] = useState(false);
@@ -162,7 +163,8 @@ export default function SelectorIsland({
   };
   const onClick = () => router.push(`/world/${id}`);
 
-  const labelY = 4.2;
+  // Wooden signpost — per-island position, default front-centre
+  const [signX, signZ] = signOffset ?? [0, 1.6];
 
   return (
     <group
@@ -196,31 +198,56 @@ export default function SelectorIsland({
         />
       </mesh>
 
-      <Text
-        position={[0, labelY + 0.6, 0]}
-        fontSize={0.6}
-        color={hovered ? "#ffd278" : "#ffffff"}
-        anchorX="center"
-        anchorY="middle"
-        outlineWidth={0.04}
-        outlineColor="#0e2438"
-        letterSpacing={-0.02}
-      >
-        {title.toUpperCase()}
-      </Text>
+      {/* Wooden signpost: two thin legs + a smaller tilted plank */}
+      <group position={[signX, 0.05, signZ]}>
+        {/* Left leg */}
+        <mesh position={[-0.55, 0.35, 0]} castShadow>
+          <cylinderGeometry args={[0.04, 0.04, 0.7, 8]} />
+          <meshStandardMaterial color="#3e2a14" roughness={0.95} />
+        </mesh>
+        {/* Right leg */}
+        <mesh position={[0.55, 0.35, 0]} castShadow>
+          <cylinderGeometry args={[0.04, 0.04, 0.7, 8]} />
+          <meshStandardMaterial color="#3e2a14" roughness={0.95} />
+        </mesh>
 
-      <Text
-        position={[0, labelY + 0.05, 0]}
-        fontSize={0.24}
-        color="#cce4f5"
-        anchorX="center"
-        anchorY="middle"
-        outlineWidth={0.018}
-        outlineColor="#0e2438"
-        letterSpacing={0.06}
-      >
-        {org}
-      </Text>
+        {/* Sign plank, tilted back to face the 30° camera */}
+        <group position={[0, 0.7, 0]} rotation={[-Math.PI / 6.5, 0, 0]}>
+          {/* Main plank */}
+          <mesh castShadow receiveShadow>
+            <boxGeometry args={[1.7, 0.5, 0.07]} />
+            <meshStandardMaterial
+              color={hovered ? "#9a6232" : "#7a4f25"}
+              roughness={0.85}
+            />
+          </mesh>
+          {/* Top trim */}
+          <mesh position={[0, 0.27, 0]} castShadow>
+            <boxGeometry args={[1.82, 0.08, 0.085]} />
+            <meshStandardMaterial color="#3e2a14" roughness={0.95} />
+          </mesh>
+          {/* Bottom trim */}
+          <mesh position={[0, -0.27, 0]} castShadow>
+            <boxGeometry args={[1.82, 0.08, 0.085]} />
+            <meshStandardMaterial color="#3e2a14" roughness={0.95} />
+          </mesh>
+
+          {/* Painted island name */}
+          <Text
+            position={[0, 0, 0.045]}
+            font="/fonts/Rubik-Black.woff"
+            fontSize={0.24}
+            color={hovered ? "#ffe6a8" : "#fff5db"}
+            anchorX="center"
+            anchorY="middle"
+            outlineWidth={0.01}
+            outlineColor="#2a1808"
+            letterSpacing={-0.02}
+          >
+            {title.toUpperCase()}
+          </Text>
+        </group>
+      </group>
     </group>
   );
 }

@@ -54,24 +54,26 @@ export default function WorldScene({ island }: { island: IslandDef }) {
       {/* World title floating above the building */}
       <Text
         position={[0, 9, -10]}
+        font="/fonts/Rubik-Black.woff"
         fontSize={1.4}
         color="#e8e6df"
         anchorX="center"
         anchorY="middle"
-        outlineWidth={0.04}
+        outlineWidth={0.05}
         outlineColor="#0a0a0a"
-        letterSpacing={-0.03}
+        letterSpacing={-0.04}
       >
-        {island.title}
+        {island.title.toUpperCase()}
       </Text>
 
       <Text
         position={[0, 7.6, -10]}
+        font="/fonts/Rubik-SemiBold.woff"
         fontSize={0.45}
         color="#8a8780"
         anchorX="center"
         anchorY="middle"
-        letterSpacing={0.05}
+        letterSpacing={0.04}
       >
         {island.org.toUpperCase()} · {island.era.toUpperCase()}
       </Text>
@@ -79,6 +81,7 @@ export default function WorldScene({ island }: { island: IslandDef }) {
       {/* Coming-soon plaque, replaceable per-world later */}
       <Text
         position={[0, 0.8, -2.5]}
+        font="/fonts/Rubik-SemiBold.woff"
         fontSize={0.32}
         color="#5a5854"
         anchorX="center"
