@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Justin Yang — Software Engineer",
     description:
-      "A portfolio you can walk around: three floating islands — Education, Work, Projects — and the work behind them.",
+      "Three islands — Education, Work, Projects — and the work behind them.",
     url: "https://juyoungyang.dev",
     siteName: "Justin Yang",
     type: "website",
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Justin Yang — Software Engineer",
     description:
-      "A portfolio you can walk around: three floating islands — Education, Work, Projects — and the work behind them.",
+      "Three islands — Education, Work, Projects — and the work behind them.",
     images: ["/og.png"],
   },
 };
