@@ -12,14 +12,12 @@ import {
   monoFont,
   panelStyle,
 } from "./chrome/hudTheme";
-import { FileIcon, GitHubIcon, LinkedInIcon, MailIcon, ScholarIcon } from "./chrome/Icons";
+import { GitHubIcon, LinkedInIcon, ScholarIcon } from "./chrome/Icons";
 
 const LINKS = [
   { href: "https://github.com/JuYoung-Yang-00", label: "GitHub", Icon: GitHubIcon },
   { href: "https://linkedin.com/in/juyoung-yang", label: "LinkedIn", Icon: LinkedInIcon },
   { href: "https://scholar.google.com/citations?user=YTJXJj8AAAAJ", label: "Google Scholar", Icon: ScholarIcon },
-  { href: "mailto:juyoung.yang.00@gmail.com", label: "Email", Icon: MailIcon },
-  { href: "/resume.pdf", label: "Résumé", Icon: FileIcon },
 ];
 
 export default function SelectorHUD() {

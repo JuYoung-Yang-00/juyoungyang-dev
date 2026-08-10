@@ -21,12 +21,12 @@ type Props = {
 export default function StationPanel({ station, onClose }: Props) {
   return (
     <div
-      className="pointer-events-auto fixed inset-0 z-30 flex items-end sm:items-center justify-center"
+      className="pointer-events-auto fixed inset-0 z-30 flex items-center justify-center"
       style={{ background: "rgba(6, 18, 30, 0.45)" }}
       onClick={onClose}
     >
       <div
-        className="station-panel-scroll relative w-auto min-w-0 sm:min-w-[380px] px-6 py-6 sm:px-8 sm:py-7 mx-3 mb-4 sm:m-4"
+        className="station-panel-scroll relative w-auto min-w-0 sm:min-w-[380px] px-6 py-6 sm:px-8 sm:py-7 m-3 sm:m-4"
         style={{
           ...panelStyle,
           maxWidth: station.skillGroups || station.sections ? 520 : 460,

@@ -90,8 +90,36 @@ export default function Joystick() {
         alignItems: "center",
         justifyContent: "center",
         touchAction: "none",
+        position: "relative",
       }}
     >
+      {/* Subtle direction hints in the base */}
+      {[
+        { rot: 0, top: 7, left: "50%", ml: -5 },
+        { rot: 180, bottom: 7, left: "50%", ml: -5 },
+        { rot: -90, left: 7, top: "50%", mt: -6 },
+        { rot: 90, right: 7, top: "50%", mt: -6 },
+      ].map((a) => (
+        <span
+          key={a.rot}
+          style={{
+            position: "absolute",
+            top: a.top,
+            bottom: a.bottom,
+            left: a.left,
+            right: a.right,
+            marginLeft: a.ml,
+            marginTop: a.mt,
+            transform: `rotate(${a.rot}deg)`,
+            color: "rgba(255,255,255,0.18)",
+            fontSize: 10,
+            lineHeight: 1,
+            pointerEvents: "none",
+          }}
+        >
+          ▲
+        </span>
+      ))}
       <div
         ref={knobRef}
         style={{

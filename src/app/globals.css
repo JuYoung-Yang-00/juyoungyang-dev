@@ -29,6 +29,15 @@ body {
   padding: 0;
 }
 
+/* Mobile browsers: track the visible viewport (URL bar collapses/expands),
+   so bottom HUD never hides behind the browser toolbar */
+@supports (height: 100dvh) {
+  html,
+  body {
+    height: 100dvh;
+  }
+}
+
 body {
   background: var(--bg);
   color: var(--fg);

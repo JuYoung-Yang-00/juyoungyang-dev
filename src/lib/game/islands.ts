@@ -82,7 +82,7 @@ export const ISLANDS: IslandDef[] = [
     org: "Duke · B.S. Computer Science",
     era: "2018–2024",
     position: [-7.6, 0.5, -1.8],
-    portraitPosition: [-0.8, 0.5, -8.8],
+    portraitPosition: [-1.1, 0.5, 6.2],
     building: "castle",
     extraBuildings: [
       { key: "tower_A", position: [E[0] + 0.15, 0, E[1] - 0.35], scale: 0.72, rotY: 0.5 },
@@ -104,7 +104,7 @@ export const ISLANDS: IslandDef[] = [
     org: "KOLfi · OSSA.AI · Very Sweet",
     era: "2024–now",
     position: [0.9, 0.62, 4.4],
-    portraitPosition: [0.7, 0.62, 0.6],
+    portraitPosition: [2.6, 0.62, 0.0],
     building: "tower_B",
     extraBuildings: [
       { key: "market", position: [W[0] - 0.2, 0, W[1] + 0.1], scale: 0.8, rotY: 0.45 },
@@ -128,7 +128,7 @@ export const ISLANDS: IslandDef[] = [
     org: "Notula · Eventify · Spot · more",
     era: "side quests",
     position: [8.2, 0.7, -1.2],
-    portraitPosition: [-0.5, 0.7, 9.4],
+    portraitPosition: [-2.4, 0.7, -7.8],
     building: "tavern",
     tiles: [E, NW, SW],
     signOffset: [2.2, 0.5],

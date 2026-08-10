@@ -127,13 +127,13 @@ export default function WorldHUD({ island, stations }: Props) {
         <span>{island.era}</span>
       </div>
 
-      {/* Bottom-left — controls (desktop) or joystick (touch) */}
+      {/* Bottom-right joystick (touch) or bottom-left controls (desktop) */}
       {touch ? (
         <div
           className="absolute"
           style={{
-            insetInlineStart: 22,
-            insetBlockEnd: "calc(22px + env(safe-area-inset-bottom))",
+            insetInlineEnd: 22,
+            insetBlockEnd: "calc(30px + env(safe-area-inset-bottom))",
           }}
         >
           <Joystick />
@@ -171,13 +171,13 @@ export default function WorldHUD({ island, stations }: Props) {
       {near &&
         !open &&
         (touch ? (
-          // Right-thumb action button, opposite the joystick.
+          // Left-thumb action button, opposite the joystick.
           <button
             className="absolute pointer-events-auto px-6 py-3.5 rounded-full"
             style={{
               ...monoFont,
-              insetInlineEnd: 22,
-              insetBlockEnd: "calc(48px + env(safe-area-inset-bottom))",
+              insetInlineStart: 22,
+              insetBlockEnd: "calc(56px + env(safe-area-inset-bottom))",
               fontSize: 13,
               letterSpacing: "0.1em",
               fontWeight: 700,

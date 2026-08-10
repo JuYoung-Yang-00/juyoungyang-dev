@@ -19,7 +19,7 @@ type Props = {
 };
 
 export default function LoadingGate({ onReady, skip, dark, label = "PORTFOLIO WORLDS" }: Props) {
-  const { progress, active } = useProgress();
+  const { progress, active, total } = useProgress();
   const [phase, setPhase] = useState<"loading" | "fading" | "gone">(
     skip ? "gone" : "loading"
   );
@@ -35,12 +35,16 @@ export default function LoadingGate({ onReady, skip, dark, label = "PORTFOLIO WO
 
   useEffect(() => {
     if (phase !== "loading") return;
-    // Consider the scene loaded when the loader has gone idle. A short grace
-    // period covers the tick before the first asset request registers.
+    // Consider the scene loaded when the loader has gone idle. On slow
+    // devices the first asset request can register well after mount, and a
+    // bare idle check would dismiss the gate onto a half-empty scene — so
+    // also wait until at least one asset has been tracked (with a hard
+    // fallback so a scene with no tracked assets can't hold the gate).
     const check = () => {
       const elapsed = Date.now() - mountedAt.current;
       if (elapsed < MIN_SHOW_MS) return;
       if (active) return;
+      if (total === 0 && elapsed < 4000) return;
       if (!readyFired.current) {
         readyFired.current = true;
         onReady?.();
@@ -50,7 +54,7 @@ export default function LoadingGate({ onReady, skip, dark, label = "PORTFOLIO WO
     };
     const iv = setInterval(check, 120);
     return () => clearInterval(iv);
-  }, [phase, active, onReady]);
+  }, [phase, active, total, onReady]);
 
   if (phase === "gone") return null;
 
