@@ -19,6 +19,13 @@ export type StationDef = {
   image?: string;
   /** Icon-chip skill grid, rendered instead of / after bullets. */
   skillGroups?: SkillGroup[];
+  /** Sub-entries (one per project) rendered as a scrolling list. */
+  sections?: {
+    heading: string;
+    sub: string;
+    bullets: string[];
+    links?: { label: string; href: string }[];
+  }[];
   links?: { label: string; href: string }[];
   /** Position on the platform, [x, z]. */
   spot: [number, number];
@@ -217,32 +224,26 @@ export const DAY_WORLDS: Record<string, DayWorldDef> = {
   },
 
   // ───────────────────────────────────────────────────────────────────────
-  // PROJECTS — a guild village: tavern hall in the middle, one plot with
-  // its own building per project, walked roughly in chronological order.
+  // PROJECTS — one guild hall, one board: every side quest reads from a
+  // single scrolling ledger in front of the tavern.
   // ───────────────────────────────────────────────────────────────────────
   projects: {
     id: "projects",
-    tagline: "Side quests · one plot per project",
+    tagline: "Side quests · one scrolling ledger",
     platform: { kind: "disc", radius: 7 },
-    buildings: [
-      { key: "tavern", position: [0, 0, -1.6], scale: 2.0 },
-      { key: "tower_B", position: [-7.0, 0, 4.6], scale: 1.2, rotY: 0.55 }, // Not Uber dispatch
-      { key: "home_A", position: [-8.5, 0, -1.4], scale: 1.4, rotY: 0.6 }, // ESJ press
-      { key: "barracks", position: [-6.8, 0, -6.4], scale: 1.4, rotY: 0.45 }, // Bulk Buy warehouse
-      { key: "market", position: [6.8, 0, -6.4], scale: 1.5, rotY: -0.45 }, // Eventify stall
-      { key: "home_A", position: [8.5, 0, -1.4], scale: 1.4, rotY: -0.6 }, // Spot cottage
-      { key: "tower_A", position: [7.0, 0, 4.6], scale: 1.3, rotY: -0.55 }, // Notula tower
-    ],
+    buildings: [{ key: "tavern", position: [0, 0, -2.6], scale: 2.4 }],
     props: [
-      { path: D + "flag_green.gltf", position: [-1.9, 0, 0.6], scale: 1.1 },
-      { path: D + "flag_green.gltf", position: [1.9, 0, 0.6], scale: 1.1 },
-      { path: D + "barrel.gltf", position: [-2.4, 0, -3.2], scale: 1.0 },
-      { path: D + "crate_open.gltf", position: [2.5, 0, -3.3], scale: 1.0 },
-      { path: D + "crate_A_big.gltf", position: [-5.3, 0, -7.2], scale: 0.95 },
-      { path: D + "sack.gltf", position: [5.4, 0, -7.2], scale: 0.95 },
-      { path: D + "resource_lumber.gltf", position: [-9.8, 0, -3.2], scale: 0.9 },
+      { path: D + "flag_green.gltf", position: [-2.3, 0, 0.9], scale: 1.1 },
+      { path: D + "flag_green.gltf", position: [2.3, 0, 0.9], scale: 1.1 },
+      { path: D + "barrel.gltf", position: [-3.5, 0, -4.5], scale: 1.0 },
+      { path: D + "crate_open.gltf", position: [3.5, 0, -4.6], scale: 1.0 },
       { path: D + "rock_single_A.gltf", position: [0.7, 0, -8.6], scale: 0.9 },
-      { path: D + "ladder.gltf", position: [-8.2, 0, 5.6], rotation: 1.1, scale: 0.9 },
+      { path: D + "trees_A_medium.gltf", position: [-7.0, 0, 4.6], scale: 1.1 },
+      { path: D + "trees_B_medium.gltf", position: [-8.5, 0, -1.4], scale: 1.05 },
+      { path: D + "trees_A_medium.gltf", position: [-6.8, 0, -6.4], scale: 1.0 },
+      { path: D + "trees_B_medium.gltf", position: [6.8, 0, -6.4], scale: 1.05 },
+      { path: D + "trees_A_medium.gltf", position: [8.5, 0, -1.4], scale: 1.1 },
+      { path: D + "trees_B_medium.gltf", position: [7.0, 0, 4.6], scale: 1.0 },
       { path: D + "trees_A_medium.gltf", position: [-9.6, 0, 2.4], scale: 1.05 },
       { path: D + "trees_A_medium.gltf", position: [9.6, 0, 2.4], scale: 1.05 },
       { path: D + "trees_A_small.gltf", position: [-4.3, 0, 6.9], scale: 0.95 },
@@ -252,113 +253,96 @@ export const DAY_WORLDS: Record<string, DayWorldDef> = {
     ],
     stations: [
       {
-        id: "notuber",
-        board: "NOT UBER",
-        eyebrow: "GRAPH SIMULATION · NOV 2023",
-        title: "Not Uber",
-        bullets: [
-          "Ride-share simulation over a 50,000-node Manhattan graph with 2,000 passengers and 200 drivers.",
-          "Event-driven matching with A*, Dijkstra, and Floyd-Warshall — tuned to a linear-time strategy.",
+        id: "projects",
+        board: "PROJECTS",
+        eyebrow: "SIDE QUESTS · 2023 – NOW",
+        title: "Personal builds",
+        sections: [
+          {
+            heading: "Notula",
+            sub: "AI MEETING COMPANION · IN PROGRESS",
+            bullets: [
+              "Joins video meetings, captures notes, ships summaries and insights.",
+              "Distributed microservices with async workflows over RabbitMQ.",
+              "Zoom integrated via GraphQL to cut fetch latency · Next.js, Express, PostgreSQL, GCP.",
+            ],
+          },
+          {
+            heading: "Spot — for couples",
+            sub: "MOBILE APP · IN PROGRESS",
+            bullets: [
+              "Find, share, and bookmark favourite places together.",
+              "React Native + Expo · FastAPI · Supabase · Prisma · GCP · Docker.",
+            ],
+          },
+          {
+            heading: "Eventify Inbox",
+            sub: "AI SCHEDULE MANAGER · APR 2024",
+            bullets: [
+              "LangChain agent that autonomously turns incoming email into calendar meetings and agendas via webhooks.",
+              "LangChain, OpenAI, Flask, React, AWS.",
+            ],
+            links: [
+              { label: "View code", href: "https://github.com/JuYoung-Yang-00/EventifyInbox" },
+            ],
+          },
+          {
+            heading: "Bulk Buy Buddies",
+            sub: "COSTCO MATCHMAKING · DEC 2023",
+            bullets: [
+              "Matches Costco shoppers who want to split bulk purchases.",
+              "React · FastAPI · MongoDB · Firebase · Google Maps.",
+            ],
+            links: [
+              { label: "View code", href: "https://github.com/wgdevworld/bulk-buy-buddies" },
+            ],
+          },
+          {
+            heading: "Earth Street Journal",
+            sub: "CLIMATE NEWS · NOV 2023",
+            bullets: [
+              "Scrapes and summarizes environmental news for accessibility.",
+              "Fine-tuned GPT for consistent structured summaries · Flask, React, MongoDB.",
+            ],
+            links: [
+              { label: "View code", href: "https://github.com/JuYoung-Yang-00/earthstreetjournal" },
+            ],
+          },
+          {
+            heading: "Not Uber",
+            sub: "GRAPH SIMULATION · NOV 2023",
+            bullets: [
+              "Ride-share simulation over a 50,000-node Manhattan graph with 2,000 passengers and 200 drivers.",
+              "Event-driven matching with A*, Dijkstra, and Floyd-Warshall — tuned to a linear-time strategy.",
+            ],
+            links: [
+              { label: "View code", href: "https://github.com/JuYoung-Yang-00/case-study-Not-Uber" },
+            ],
+          },
         ],
-        links: [
-          { label: "View code", href: "https://github.com/JuYoung-Yang-00/case-study-Not-Uber" },
-        ],
-        spot: [-5.0, 3.6],
-        rotY: 0.5,
-      },
-      {
-        id: "esj",
-        board: "ESJ",
-        eyebrow: "CLIMATE NEWS · NOV 2023",
-        title: "Earth Street Journal",
-        bullets: [
-          "Scrapes and summarizes environmental news for accessibility.",
-          "Fine-tuned GPT for consistent structured summaries · Flask, React, MongoDB.",
-        ],
-        links: [
-          { label: "View code", href: "https://github.com/JuYoung-Yang-00/earthstreetjournal" },
-        ],
-        spot: [-6.3, -0.8],
-        rotY: 0.55,
-      },
-      {
-        id: "bbb",
-        board: "BULK BUY",
-        eyebrow: "COSTCO MATCHMAKING · DEC 2023",
-        title: "Bulk Buy Buddies",
-        bullets: [
-          "Matches Costco shoppers who want to split bulk purchases.",
-          "React · FastAPI · MongoDB · Firebase · Google Maps.",
-        ],
-        links: [
-          { label: "View code", href: "https://github.com/wgdevworld/bulk-buy-buddies" },
-        ],
-        spot: [-4.7, -4.8],
-        rotY: 0.4,
-      },
-      {
-        id: "eventify",
-        board: "EVENTIFY",
-        eyebrow: "AI SCHEDULE MANAGER · APR 2024",
-        title: "Eventify Inbox",
-        bullets: [
-          "LangChain agent that autonomously turns incoming email into calendar meetings and agendas via webhooks.",
-          "LangChain, OpenAI, Flask, React, AWS.",
-        ],
-        links: [
-          { label: "View code", href: "https://github.com/JuYoung-Yang-00/EventifyInbox" },
-        ],
-        spot: [4.7, -4.8],
-        rotY: -0.4,
-      },
-      {
-        id: "spot",
-        board: "SPOT",
-        eyebrow: "MOBILE APP · IN PROGRESS",
-        title: "Spot — for couples",
-        bullets: [
-          "Find, share, and bookmark favourite places together.",
-          "React Native + Expo · FastAPI · Supabase · Prisma · GCP · Docker.",
-        ],
-        spot: [6.3, -0.8],
-        rotY: -0.55,
-      },
-      {
-        id: "notula",
-        board: "NOTULA",
-        eyebrow: "AI MEETING COMPANION · IN PROGRESS",
-        title: "Notula",
-        bullets: [
-          "Joins video meetings, captures notes, ships summaries and insights.",
-          "Distributed microservices with async workflows over RabbitMQ.",
-          "Zoom integrated via GraphQL to cut fetch latency · Next.js, Express, PostgreSQL, GCP.",
-        ],
-        spot: [5.0, 3.6],
-        rotY: -0.5,
+        spot: [2.7, 1.9],
+        rotY: -0.35,
       },
     ],
     spawn: [0, 6.9],
     welcome: { spot: [3.1, 7.8], rotY: -0.5 },
     colliders: [
-      [0, -1.6, 2.3], // tavern
-      [-7.0, 4.6, 1.6],
-      [-8.5, -1.4, 1.6],
-      [-6.8, -6.4, 1.8],
-      [6.8, -6.4, 1.9],
-      [8.5, -1.4, 1.6],
-      [7.0, 4.6, 1.5],
-      [-2.4, -3.2, 0.6],
-      [2.5, -3.3, 0.6],
-      [-5.3, -7.2, 0.8],
-      [5.4, -7.2, 0.6],
-      [-9.8, -3.2, 0.7],
-      [0.7, -8.6, 0.7],
+      [0, -2.6, 2.9], // tavern
+      [-7.0, 4.6, 0.9],
+      [-8.5, -1.4, 0.9],
+      [-6.8, -6.4, 0.9],
+      [6.8, -6.4, 0.9],
+      [8.5, -1.4, 0.9],
+      [7.0, 4.6, 0.9],
       [-9.6, 2.4, 0.9],
       [9.6, 2.4, 0.9],
       [-4.3, 6.9, 0.8],
       [4.3, 6.9, 0.8],
       [-2.0, -9.4, 0.9],
       [3.2, -9.2, 0.8],
+      [-3.5, -4.5, 0.5],
+      [3.5, -4.6, 0.5],
+      [0.7, -8.6, 0.7],
     ],
   },
 };

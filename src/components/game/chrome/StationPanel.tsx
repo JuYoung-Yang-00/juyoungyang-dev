@@ -26,10 +26,10 @@ export default function StationPanel({ station, onClose }: Props) {
       onClick={onClose}
     >
       <div
-        className="relative w-auto min-w-0 sm:min-w-[380px] px-6 py-6 sm:px-8 sm:py-7 mx-3 mb-4 sm:m-4"
+        className="station-panel-scroll relative w-auto min-w-0 sm:min-w-[380px] px-6 py-6 sm:px-8 sm:py-7 mx-3 mb-4 sm:m-4"
         style={{
           ...panelStyle,
-          maxWidth: station.skillGroups ? 520 : 460,
+          maxWidth: station.skillGroups || station.sections ? 520 : 460,
           maxHeight: "72vh",
           overflowY: "auto",
         }}
@@ -120,6 +120,87 @@ export default function StationPanel({ station, onClose }: Props) {
               </li>
             ))}
           </ul>
+        )}
+
+        {station.sections && (
+          <div>
+            {station.sections.map((sec) => (
+              <div
+                key={sec.heading}
+                style={{
+                  borderTop: "1px solid rgba(255,255,255,0.10)",
+                  padding: "14px 0 4px",
+                }}
+              >
+                <div
+                  style={{
+                    ...monoFont,
+                    fontSize: 10,
+                    letterSpacing: "0.14em",
+                    color: INK_DIM,
+                  }}
+                >
+                  {sec.sub}
+                </div>
+                <div
+                  className="mt-1"
+                  style={{
+                    ...displayFont,
+                    fontWeight: 700,
+                    fontSize: 16,
+                    letterSpacing: "-0.01em",
+                    color: INK,
+                  }}
+                >
+                  {sec.heading}
+                </div>
+                <ul
+                  className="mt-2 space-y-2"
+                  style={{ listStyle: "none", padding: 0, margin: 0 }}
+                >
+                  {sec.bullets.map((b, i) => (
+                    <li
+                      key={i}
+                      className="flex gap-2.5"
+                      style={{
+                        ...monoFont,
+                        fontSize: 12,
+                        lineHeight: 1.55,
+                        color: INK_SOFT,
+                      }}
+                    >
+                      <span style={{ color: ACCENT, flexShrink: 0 }}>▸</span>
+                      <span>{b}</span>
+                    </li>
+                  ))}
+                </ul>
+                {sec.links && (
+                  <div className="mt-2.5 mb-2 flex flex-wrap gap-2">
+                    {sec.links.map((l) => (
+                      <a
+                        key={l.href}
+                        href={l.href}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="px-3 py-1.5 rounded-md"
+                        style={{
+                          ...monoFont,
+                          fontSize: 10,
+                          letterSpacing: "0.06em",
+                          fontWeight: 700,
+                          color: "#0d2030",
+                          background: ACCENT,
+                          textDecoration: "none",
+                        }}
+                      >
+                        {l.label} ↗
+                      </a>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
         )}
 
         {station.skillGroups && (
