@@ -17,7 +17,7 @@ const KEY_MAP: Record<string, keyof KeyState> = {
   ArrowLeft: "left",
   KeyD: "right",
   ArrowRight: "right",
-  KeyE: "interact",
+  Space: "interact",
 };
 
 export function useKeyboard(): RefObject<KeyState> {
@@ -34,7 +34,9 @@ export function useKeyboard(): RefObject<KeyState> {
       const k = KEY_MAP[e.code];
       if (!k) return;
       keys.current[k] = true;
-      if (e.code.startsWith("Arrow")) e.preventDefault();
+      // Arrows scroll the page and Space activates focused buttons — both
+      // are game inputs here.
+      if (e.code.startsWith("Arrow") || e.code === "Space") e.preventDefault();
     };
     const up = (e: KeyboardEvent) => {
       const k = KEY_MAP[e.code];

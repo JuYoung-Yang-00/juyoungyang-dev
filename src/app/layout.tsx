@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { JetBrains_Mono, Rubik } from "next/font/google";
 import "./globals.css";
 
@@ -16,8 +16,35 @@ const display = Rubik({
 });
 
 export const metadata: Metadata = {
-  title: "Ju Young Yang",
-  description: "Ju Young (Justin) Yang — software engineer.",
+  metadataBase: new URL("https://juyoungyang.dev"),
+  title: "Justin Yang — Software Engineer",
+  description:
+    "Ju Young (Justin) Yang's portfolio, playable as a tiny island world. Three islands — Education, Work, Projects — one knight, and the story behind the work.",
+  openGraph: {
+    title: "Justin Yang — Software Engineer",
+    description:
+      "A portfolio you can walk around: three floating islands — Education, Work, Projects — and the work behind them.",
+    url: "https://juyoungyang.dev",
+    siteName: "Justin Yang",
+    type: "website",
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: "Justin Yang's island world portfolio" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Justin Yang — Software Engineer",
+    description:
+      "A portfolio you can walk around: three floating islands — Education, Work, Projects — and the work behind them.",
+    images: ["/og.png"],
+  },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  viewportFit: "cover",
+  themeColor: "#a8dcef",
 };
 
 export default function RootLayout({
