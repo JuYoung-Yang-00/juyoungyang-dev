@@ -115,7 +115,7 @@ export default function WorldHUD({ island, stations }: Props) {
         className="absolute hidden sm:block px-3 py-2"
         style={{
           ...panelStyle,
-          insetInlineEnd: 14,
+          insetInlineEnd: 60,
           insetBlockStart: "calc(14px + env(safe-area-inset-top))",
           fontSize: 10,
           letterSpacing: "0.08em",

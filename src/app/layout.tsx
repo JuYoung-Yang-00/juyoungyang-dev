@@ -1,3 +1,4 @@
+import MusicToggle from "@/components/game/chrome/MusicToggle";
 import type { Metadata, Viewport } from "next";
 import { JetBrains_Mono, Rubik } from "next/font/google";
 import "./globals.css";
@@ -56,6 +57,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${mono.variable} ${display.variable} antialiased`}>
         {children}
+        <MusicToggle />
       </body>
     </html>
   );
