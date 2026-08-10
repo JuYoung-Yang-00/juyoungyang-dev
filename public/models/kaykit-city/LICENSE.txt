@@ -1,0 +1,3 @@
+KayKit City Builder Bits 1.0 by Kay Lousberg (kaylousberg.com)
+License: CC0 1.0 Universal — free for personal and commercial use, no attribution required.
+Source: https://github.com/KayKit-Game-Assets/KayKit-City-Builder-Bits-1.0

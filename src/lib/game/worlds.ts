@@ -12,6 +12,8 @@ export type StationDef = {
   /** Small line above the panel title. */
   eyebrow: string;
   title: string;
+  /** Employment range, shown on its own line under the title. */
+  dates?: string;
   bullets?: string[];
   /** Photo header shown above the panel body. */
   image?: string;
@@ -373,40 +375,43 @@ export const WORK_STATIONS: StationDef[] = [
   {
     id: "kolfi",
     board: "KOLFI",
-    eyebrow: "LEAD SOFTWARE ENGINEER · KOLFI LABS · FEB 2026 – NOW",
+    eyebrow: "LEAD SOFTWARE ENGINEER · KOLFI LABS",
     title: "Real-time crypto analytics & trading",
+    dates: "FEB 2026 – NOW",
     bullets: [
       "Architected a cloud-native, event-driven platform of 30+ microservices tracking 600+ influencers and 19,000+ assets — 200 → 5,000 MAU in four months, shipping weekly.",
       "Built the data pipeline end to end: Rust ingestion at ~1,500 tx/s through 11 protocol-native decoders into 1-second TimescaleDB candles — matched the vendor it replaced to 0.22% median deviation.",
       "Drove trade execution to p50 400 ms / p95 800 ms from click to on-chain confirmation with a zero-I/O hot path and a raw UDP shred-stream receipt predictor.",
       "Owned 440+ Postgres/TimescaleDB migrations and launched the custodial-trading partner REST API powering third-party integrations.",
     ],
-    spot: [-4.8, 15.5],
-    rotY: 0.4,
+    spot: [-6.6, 14],
+    rotY: 0.25,
   },
   {
     id: "ossa",
     board: "OSSA.AI",
-    eyebrow: "SOFTWARE ENGINEER · OSSA.AI · JUL 2024 – DEC 2025",
-    title: "Generative media at a startup",
+    eyebrow: "SOFTWARE ENGINEER · OSSA.AI",
+    title: "Generative image, video & voice products",
+    dates: "JUL 2024 – DEC 2025",
     bullets: [
       "Shipped LoRA image customization, image-to-video generation, and voice sampling + text-to-voice features.",
       "Built Chat-to-Video: Vercel AI + LangChain agents + PostgreSQL parameter management.",
       "Ran four Dockerized microservices on AWS; migrated the LLM stack from Azure OpenAI to AWS Bedrock.",
     ],
-    spot: [4.6, 1.5],
-    rotY: -0.4,
+    spot: [6.5, -1.5],
+    rotY: -0.25,
   },
   {
     id: "verysweet",
     board: "VERY SWEET",
-    eyebrow: "SOFTWARE ENGINEER · VERY SWEET INC. · MAY – AUG 2024",
+    eyebrow: "SOFTWARE ENGINEER · VERY SWEET INC.",
     title: "Fintech transaction intelligence",
+    dates: "MAY – AUG 2024",
     bullets: [
       "Built a system classifying unstructured financial transactions into IRS tax categories — rule-based logic plus a lightweight language model.",
       "Analyzed 3,000+ real anonymized card transactions to automate budgeting recommendations.",
     ],
-    spot: [-4.6, -13.5],
-    rotY: 0.35,
+    spot: [-6.4, -16.5],
+    rotY: 0.25,
   },
 ];

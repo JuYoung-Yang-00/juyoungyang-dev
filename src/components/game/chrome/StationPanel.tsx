@@ -65,7 +65,7 @@ export default function StationPanel({ station, onClose }: Props) {
         </div>
 
         <div
-          className="mt-2 mb-4"
+          className={station.dates ? "mt-2 mb-1" : "mt-2 mb-4"}
           style={{
             ...displayFont,
             fontWeight: 800,
@@ -77,6 +77,20 @@ export default function StationPanel({ station, onClose }: Props) {
         >
           {station.title}
         </div>
+
+        {station.dates && (
+          <div
+            className="mb-4"
+            style={{
+              ...monoFont,
+              fontSize: 11,
+              letterSpacing: "0.12em",
+              color: ACCENT,
+            }}
+          >
+            {station.dates}
+          </div>
+        )}
 
         {station.image && (
           // eslint-disable-next-line @next/next/no-img-element -- static asset, panel-sized
