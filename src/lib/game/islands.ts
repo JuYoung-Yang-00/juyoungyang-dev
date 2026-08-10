@@ -88,7 +88,7 @@ export const ISLANDS: IslandDef[] = [
       { key: "tower_A", position: [E[0] + 0.15, 0, E[1] - 0.35], scale: 0.72, rotY: 0.5 },
     ],
     tiles: [E, W, NE, SW, SE],
-    signOffset: [-1.7, 1.9],
+    signOffset: [-1.1, 1.9],
     ringRadius: 2.75,
     decorations: [
       { path: D + "trees_A_large.gltf", position: [W[0] - 0.2, 0, W[1] - 0.2], scale: 0.85 },
