@@ -7,6 +7,7 @@ import { useAnimations, useGLTF } from "@react-three/drei";
 import { useKeyboard } from "@/lib/game/useKeyboard";
 import { playerObj } from "@/lib/game/refs";
 import { joystick, useGameStore } from "@/lib/game/store";
+import { playFootstep } from "@/lib/game/sfx";
 
 const CHARACTER_PATH = "/models/character/Knight.glb";
 const MOVEMENT_ANIM_PATH = "/models/animations/Rig_Medium_MovementBasic.glb";
@@ -22,6 +23,9 @@ const RUN_AFTER_S = 1;
 const RUN_ANIM_SCALE = 1.35;
 const ROT_SMOOTH = 12;
 const FADE = 0.18;
+// Normalized clip times where the movement animation plants a foot (two
+// strikes per loop). Tuned by ear against the KayKit run cycle.
+const STEP_PHASES = [0.22, 0.72];
 
 const _dir = new Vector3();
 
@@ -37,6 +41,7 @@ export default function PlayerCharacter({ spawn = [0, 0, 0], bounds }: Props) {
   const lastMovingRef = useRef(false);
   const movingTimeRef = useRef(0);
   const speedRef = useRef(SPEED);
+  const strideTRef = useRef(-1);
 
   const { scene } = useGLTF(CHARACTER_PATH);
   const { animations } = useGLTF(MOVEMENT_ANIM_PATH);
@@ -163,6 +168,31 @@ export default function PlayerCharacter({ spawn = [0, 0, 0], bounds }: Props) {
         if (prev) actions[prev]?.fadeOut(FADE);
       }
       lastMovingRef.current = isMoving;
+    }
+
+    // Voice a footfall where the clip actually plants a foot: fire when the
+    // movement clip's normalized time crosses a strike phase. Tracking clip
+    // time rather than a wall-clock timer keeps steps locked to the feet
+    // through the walk→run timeScale change. This runs after the transition
+    // block above so the start-of-movement reset() has already zeroed the
+    // clip time — otherwise the first frame reads a stale time and a wrapped
+    // crossing fires a phantom step.
+    if (moveAction && isMoving) {
+      const dur = moveAction.getClip().duration;
+      if (dur > 0) {
+        const tNorm = (moveAction.time / dur) % 1;
+        const last = strideTRef.current;
+        if (last >= 0 && tNorm !== last) {
+          for (const p of STEP_PHASES) {
+            const crossed =
+              last < tNorm ? p > last && p <= tNorm : p > last || p <= tNorm;
+            if (crossed) playFootstep(running);
+          }
+        }
+        strideTRef.current = tNorm;
+      }
+    } else {
+      strideTRef.current = -1;
     }
   });
 

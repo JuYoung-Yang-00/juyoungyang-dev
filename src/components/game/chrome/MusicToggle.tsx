@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { INK_SOFT, panelStyle } from "./hudTheme";
+import { setSfxMuted } from "@/lib/game/sfx";
 
 // Background music — CC0 tracks from OpenGameArt, all in /public/audio:
 //   town-theme.mp3    "Town Theme RPG" (cynicmusic)  — default
@@ -24,6 +25,7 @@ export default function MusicToggle() {
     if (!audio) return;
     audio.volume = VOLUME;
     setMuted(wantMuted);
+    setSfxMuted(wantMuted);
     if (!wantMuted) {
       const tryPlay = () => {
         audio
@@ -52,10 +54,12 @@ export default function MusicToggle() {
     if (muted) {
       localStorage.setItem(STORAGE_KEY, "0");
       setMuted(false);
+      setSfxMuted(false);
       audio.play().catch(() => {});
     } else {
       localStorage.setItem(STORAGE_KEY, "1");
       setMuted(true);
+      setSfxMuted(true);
       audio.pause();
     }
   };
@@ -64,7 +68,7 @@ export default function MusicToggle() {
     <>
       <audio ref={audioRef} src={TRACK} loop preload="auto" />
       <button
-      aria-label={muted ? "Unmute music" : "Mute music"}
+      aria-label={muted ? "Unmute sound" : "Mute sound"}
       onClick={toggle}
       className="fixed flex items-center justify-center"
       style={{
