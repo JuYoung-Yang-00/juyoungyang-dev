@@ -10,7 +10,7 @@ import { setSfxMuted } from "@/lib/game/sfx";
 //   a-new-town.mp3    "A New Town" (RPG Theme)
 const TRACK = "/audio/town-theme.mp3";
 // Kept well under the effects layer — music is the bed, effects are the voice.
-const VOLUME = 0.2;
+const VOLUME = 0.14;
 const STORAGE_KEY = "bgm-muted";
 
 /** Global music player + mute button, top-right on every page. Music is on
