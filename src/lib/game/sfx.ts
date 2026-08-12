@@ -23,7 +23,7 @@ function ensureCtx(): AudioContext | null {
     if (!AC) return null;
     ctx = new AC();
     master = ctx.createGain();
-    master.gain.value = 0.9;
+    master.gain.value = 1.0;
     master.connect(ctx.destination);
   }
   // Contexts start suspended until the page has seen a user gesture. Every

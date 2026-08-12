@@ -9,7 +9,8 @@ import { setSfxMuted } from "@/lib/game/sfx";
 //   la-citadelle.mp3  "La Citadelle" (Komiku)
 //   a-new-town.mp3    "A New Town" (RPG Theme)
 const TRACK = "/audio/town-theme.mp3";
-const VOLUME = 0.35;
+// Kept well under the effects layer — music is the bed, effects are the voice.
+const VOLUME = 0.2;
 const STORAGE_KEY = "bgm-muted";
 
 /** Global music player + mute button, top-right on every page. Music is on
