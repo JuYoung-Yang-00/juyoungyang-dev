@@ -14,7 +14,8 @@ export default function SoundFX() {
       if (
         state.leavingTo &&
         !prev.leavingTo &&
-        state.leavingTo.startsWith("/world/")
+        (state.leavingTo.startsWith("/world/") ||
+          state.leavingTo === "/crossing")
       ) {
         playEnterWorld();
       }

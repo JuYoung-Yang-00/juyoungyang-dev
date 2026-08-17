@@ -1,9 +1,11 @@
 "use client";
 
-import { useMemo, useRef } from "react";
+import { useMemo, useRef, useState } from "react";
 import { Group } from "three";
 import { useFrame, useThree } from "@react-three/fiber";
 import { useGLTF } from "@react-three/drei";
+import { useRouter } from "next/navigation";
+import { useGameStore } from "@/lib/game/store";
 import SelectorIsland from "./SelectorIsland";
 import SelectorCamera from "./SelectorCamera";
 import OceanField from "./OceanField";
@@ -47,19 +49,74 @@ const CLOUDS: CloudDef[] = [
 // Clouds drift east and wrap around once they leave the stage.
 const CLOUD_WRAP = 44;
 
+// Every drifting cloud is a door to the hidden game. Hover gives only a
+// gentle swell and a pointer cursor — an easter egg should whisper.
 function CloudInstance({ def }: { def: CloudDef }) {
   const { scene } = useGLTF(def.path);
   const ref = useRef<Group>(null!);
+  const scaleRef = useRef<Group>(null!);
+  const [hovered, setHovered] = useState(false);
+  const router = useRouter();
   const obj = useMemo(() => scene.clone(true), [scene]);
+
+  const unhover = () => {
+    setHovered(false);
+    document.body.style.cursor = "default";
+  };
+  const hoverX = useRef(0);
+
   useFrame((_, delta) => {
     const g = ref.current;
     if (!g) return;
     g.position.x += def.speed * delta;
-    if (g.position.x > CLOUD_WRAP) g.position.x = -CLOUD_WRAP;
+    if (g.position.x > CLOUD_WRAP) {
+      g.position.x = -CLOUD_WRAP;
+      // The wrap teleports the cloud out from under a stationary cursor;
+      // no pointerout will fire, so release the hover here.
+      if (hovered) unhover();
+    } else if (hovered && Math.abs(g.position.x - hoverX.current) > 2.2) {
+      // Same stale-hover problem in slow motion: the cloud drifts out from
+      // under a cursor that never moves again.
+      unhover();
+    }
+    const s = scaleRef.current;
+    if (s) {
+      const target = hovered ? 1.09 : 1;
+      const k = s.scale.x + (target - s.scale.x) * Math.min(1, delta * 10);
+      s.scale.set(k, k, k);
+    }
   });
+
+  // stopPropagation keeps a cloud drifting across an island's sightline
+  // from handing the same pointer event to the island behind it.
+  const onOver = (e: { stopPropagation: () => void }) => {
+    e.stopPropagation();
+    setHovered(true);
+    hoverX.current = ref.current?.position.x ?? 0;
+    document.body.style.cursor = "pointer";
+    router.prefetch("/crossing");
+  };
+  const onOut = (e: { stopPropagation: () => void }) => {
+    e.stopPropagation();
+    unhover();
+  };
+  const onClick = (e: { stopPropagation: () => void }) => {
+    e.stopPropagation();
+    const store = useGameStore.getState();
+    if (store.leavingTo) return;
+    store.setLeavingTo("/crossing");
+  };
+
   return (
     <group ref={ref} position={def.position}>
-      <primitive object={obj} scale={def.scale} />
+      <group
+        ref={scaleRef}
+        onPointerOver={onOver}
+        onPointerOut={onOut}
+        onClick={onClick}
+      >
+        <primitive object={obj} scale={def.scale} />
+      </group>
     </group>
   );
 }

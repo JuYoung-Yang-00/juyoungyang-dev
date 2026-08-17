@@ -167,3 +167,224 @@ export function playBoardClose() {
   chime(c, t, 659.25, 0.08); // E5
   chime(c, t + 0.06, 440, 0.09); // A4
 }
+
+// ─── Knight Crossing ─────────────────────────────────────────────────────
+
+/** One hop: a bright tick with a soft landing thump right behind it. */
+export function playHop() {
+  if (muted) return;
+  const c = ensureCtx();
+  if (!c || !master) return;
+  const t = c.currentTime;
+  tick(c, t, 2100 + Math.random() * 500, 0.05);
+
+  const thump = c.createOscillator();
+  thump.type = "sine";
+  thump.frequency.setValueAtTime(190, t + 0.05);
+  thump.frequency.exponentialRampToValueAtTime(70, t + 0.12);
+  const g = c.createGain();
+  g.gain.setValueAtTime(0.0001, t + 0.05);
+  g.gain.exponentialRampToValueAtTime(0.12, t + 0.06);
+  g.gain.exponentialRampToValueAtTime(0.0001, t + 0.13);
+  thump.connect(g);
+  g.connect(master);
+  thump.start(t + 0.05);
+  thump.stop(t + 0.15);
+}
+
+/** Hop refused (edge, prop, back limit): a dull knock, no pitch lift. */
+export function playRefused() {
+  if (muted) return;
+  const c = ensureCtx();
+  if (!c || !master) return;
+  const t = c.currentTime;
+  const o = c.createOscillator();
+  o.type = "square";
+  o.frequency.value = 130;
+  const g = c.createGain();
+  g.gain.setValueAtTime(0.0001, t);
+  g.gain.exponentialRampToValueAtTime(0.05, t + 0.008);
+  g.gain.exponentialRampToValueAtTime(0.0001, t + 0.07);
+  o.connect(g);
+  g.connect(master);
+  o.start(t);
+  o.stop(t + 0.08);
+}
+
+/** Squashed by traffic: an angry two-tone horn over a flattening thud. */
+export function playSquash() {
+  if (muted) return;
+  const c = ensureCtx();
+  if (!c || !master) return;
+  const t = c.currentTime;
+
+  for (const [freq, delay] of [
+    [330, 0],
+    [277, 0.02],
+  ] as const) {
+    const o = c.createOscillator();
+    o.type = "sawtooth";
+    o.frequency.value = freq;
+    const g = c.createGain();
+    g.gain.setValueAtTime(0.0001, t + delay);
+    g.gain.exponentialRampToValueAtTime(0.09, t + delay + 0.02);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + delay + 0.35);
+    o.connect(g);
+    g.connect(master);
+    o.start(t + delay);
+    o.stop(t + delay + 0.4);
+  }
+
+  const thud = c.createOscillator();
+  thud.type = "sine";
+  thud.frequency.setValueAtTime(160, t);
+  thud.frequency.exponentialRampToValueAtTime(40, t + 0.22);
+  const tg = c.createGain();
+  tg.gain.setValueAtTime(0.0001, t);
+  tg.gain.exponentialRampToValueAtTime(0.3, t + 0.012);
+  tg.gain.exponentialRampToValueAtTime(0.0001, t + 0.26);
+  thud.connect(tg);
+  tg.connect(master);
+  thud.start(t);
+  thud.stop(t + 0.3);
+}
+
+/** Near-miss: a fast traffic whoosh capped with a reward chime. */
+export function playBrush() {
+  if (muted) return;
+  const c = ensureCtx();
+  if (!c || !master) return;
+  const t = c.currentTime;
+
+  const src = c.createBufferSource();
+  src.buffer = noise(c);
+  src.loop = true;
+  const bp = c.createBiquadFilter();
+  bp.type = "bandpass";
+  bp.Q.value = 1.4;
+  bp.frequency.setValueAtTime(2600, t);
+  bp.frequency.exponentialRampToValueAtTime(500, t + 0.22);
+  const g = c.createGain();
+  g.gain.setValueAtTime(0.0001, t);
+  g.gain.exponentialRampToValueAtTime(0.2, t + 0.03);
+  g.gain.exponentialRampToValueAtTime(0.0001, t + 0.24);
+  src.connect(bp);
+  bp.connect(g);
+  g.connect(master);
+  src.start(t);
+  src.stop(t + 0.26);
+
+  chime(c, t + 0.1, 1046.5, 0.1); // C6
+  chime(c, t + 0.17, 1318.5, 0.12); // E6
+}
+
+/** Storm closing in: a long low rumble that reads as "hurry up". */
+export function playThunder() {
+  if (muted) return;
+  const c = ensureCtx();
+  if (!c || !master) return;
+  const t = c.currentTime;
+  const src = c.createBufferSource();
+  src.buffer = noise(c);
+  src.loop = true;
+  src.playbackRate.value = 0.3;
+  const lp = c.createBiquadFilter();
+  lp.type = "lowpass";
+  lp.frequency.setValueAtTime(90, t);
+  lp.frequency.exponentialRampToValueAtTime(220, t + 0.8);
+  lp.Q.value = 1.2;
+  const g = c.createGain();
+  g.gain.setValueAtTime(0.0001, t);
+  g.gain.exponentialRampToValueAtTime(0.26, t + 0.5);
+  g.gain.exponentialRampToValueAtTime(0.0001, t + 1.7);
+  src.connect(lp);
+  lp.connect(g);
+  g.connect(master);
+  src.start(t);
+  src.stop(t + 1.8);
+}
+
+/** The zap: a sharp crack, a falling scream of a sawtooth, and crackle. */
+export function playZap() {
+  if (muted) return;
+  const c = ensureCtx();
+  if (!c || !master) return;
+  const t = c.currentTime;
+
+  tick(c, t, 4200, 0.22);
+
+  const o = c.createOscillator();
+  o.type = "sawtooth";
+  o.frequency.setValueAtTime(1900, t);
+  o.frequency.exponentialRampToValueAtTime(90, t + 0.3);
+  const g = c.createGain();
+  g.gain.setValueAtTime(0.0001, t);
+  g.gain.exponentialRampToValueAtTime(0.16, t + 0.01);
+  g.gain.exponentialRampToValueAtTime(0.0001, t + 0.32);
+  o.connect(g);
+  g.connect(master);
+  o.start(t);
+  o.stop(t + 0.35);
+
+  const src = c.createBufferSource();
+  src.buffer = noise(c);
+  const hp = c.createBiquadFilter();
+  hp.type = "highpass";
+  hp.frequency.value = 1800;
+  const ng = c.createGain();
+  ng.gain.setValueAtTime(0.14, t);
+  ng.gain.exponentialRampToValueAtTime(0.0001, t + 0.2);
+  src.connect(hp);
+  hp.connect(ng);
+  ng.connect(master);
+  src.start(t);
+  src.stop(t + 0.22);
+}
+
+/** Falling through a sky rift: a long slide-whistle down, then a poof. */
+export function playFall() {
+  if (muted) return;
+  const c = ensureCtx();
+  if (!c || !master) return;
+  const t = c.currentTime;
+
+  const o = c.createOscillator();
+  o.type = "sine";
+  o.frequency.setValueAtTime(1100, t);
+  o.frequency.exponentialRampToValueAtTime(180, t + 0.7);
+  const g = c.createGain();
+  g.gain.setValueAtTime(0.0001, t);
+  g.gain.exponentialRampToValueAtTime(0.1, t + 0.04);
+  g.gain.exponentialRampToValueAtTime(0.0001, t + 0.72);
+  o.connect(g);
+  g.connect(master);
+  o.start(t);
+  o.stop(t + 0.75);
+
+  const src = c.createBufferSource();
+  src.buffer = noise(c);
+  const lp = c.createBiquadFilter();
+  lp.type = "lowpass";
+  lp.frequency.value = 900;
+  const ng = c.createGain();
+  ng.gain.setValueAtTime(0.0001, t + 0.66);
+  ng.gain.exponentialRampToValueAtTime(0.16, t + 0.7);
+  ng.gain.exponentialRampToValueAtTime(0.0001, t + 0.85);
+  src.connect(lp);
+  lp.connect(ng);
+  ng.connect(master);
+  src.start(t + 0.66);
+  src.stop(t + 0.9);
+}
+
+/** New best on the death card: a small proud arpeggio. */
+export function playNewBest() {
+  if (muted) return;
+  const c = ensureCtx();
+  if (!c || !master) return;
+  const t = c.currentTime;
+  chime(c, t, 523.25, 0.09); // C5
+  chime(c, t + 0.09, 659.25, 0.1); // E5
+  chime(c, t + 0.18, 783.99, 0.11); // G5
+  chime(c, t + 0.3, 1046.5, 0.13); // C6
+}
