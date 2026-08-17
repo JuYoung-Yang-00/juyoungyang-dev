@@ -10,6 +10,18 @@ import { loadBest, useCrossingStore } from "@/lib/game/crossing/store";
 
 export default function Crossing() {
   const run = useCrossingStore((s) => s.run);
+  const phase = useCrossingStore((s) => s.phase);
+
+  // Playing the hidden game is what retires the selector's cloud hint —
+  // arriving here and bouncing straight back doesn't count.
+  useEffect(() => {
+    if (phase !== "playing") return;
+    try {
+      localStorage.setItem("cloud-egg-played", "1");
+    } catch {
+      // Storage unavailable (private mode) — the hint simply shows again.
+    }
+  }, [phase]);
 
   useEffect(() => {
     useCrossingStore.setState({ best: loadBest() });

@@ -70,3 +70,34 @@ body {
 .station-panel-scroll::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.32);
 }
+
+/* Cloud easter-egg hint — sits below the nameplate on narrow screens, and
+   tucks up under the mute button once there is room beside it. */
+.cloud-hint-anchor {
+  top: calc(86px + env(safe-area-inset-top));
+}
+@media (min-width: 640px) {
+  .cloud-hint-anchor {
+    top: calc(62px + env(safe-area-inset-top));
+  }
+}
+
+/* Cloud easter-egg hint — a slow drift so the balloon reads as floating,
+   never as a flashing notification. */
+@keyframes cloud-hint-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+.cloud-hint-bob {
+  animation: cloud-hint-bob 3.6s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .cloud-hint-bob {
+    animation: none;
+  }
+}

@@ -13,6 +13,7 @@ import {
   panelStyle,
 } from "./chrome/hudTheme";
 import { GitHubIcon, LinkedInIcon, ScholarIcon } from "./chrome/Icons";
+import CloudHint from "./chrome/CloudHint";
 
 const LINKS = [
   { href: "https://github.com/JuYoung-Yang-00", label: "GitHub", Icon: GitHubIcon },
@@ -43,6 +44,8 @@ export default function SelectorHUD() {
           "calc(14px + env(safe-area-inset-top)) calc(14px + env(safe-area-inset-right)) calc(14px + env(safe-area-inset-bottom)) calc(14px + env(safe-area-inset-left))",
       }}
     >
+      <CloudHint />
+
       {/* Top-left — nameplate */}
       <div
         className="absolute px-4 py-3 sm:px-5"
