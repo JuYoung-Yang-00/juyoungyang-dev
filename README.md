@@ -1,36 +1,34 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# juyoungyang.dev
 
-## Getting Started
+My portfolio, built as a small 3D world. You play a knight, sail between islands, and each island is a place I've worked. Walk up to an info station to read about what I built there.
 
-First, run the development server:
+**Live at [juyoungyang.dev](https://juyoungyang.dev)**
+
+There's also a hidden mini game. If you find the storm clouds, you'll find it.
+
+## How it's built
+
+- **Next.js 15** (App Router, static export) with **React 19**
+- **react-three-fiber** + **drei** on **three.js** for the 3D scenes
+- **Zustand** for UI state, module-level refs for frame-rate state (keeps the render loop out of React re-renders)
+- The mini game's rules live in a pure engine module (`src/lib/game/crossing/engine.ts`) with no three.js in it — seeded daily RNG, so everyone gets the same city each day
+- Sound effects are synthesized with the Web Audio API — no audio asset files
+- Everything in the repo is license-free: CC0 models from [KayKit](https://kaylousberg.itch.io/) and [Kenney](https://kenney.nl/), CC0 music, synthesized sound
+
+## Run it
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000). Arrow keys or WASD to move, or the on-screen joystick on touch devices.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Layout
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+src/app/                  routes (island selector, worlds, the mini game)
+src/components/game/      3D scenes, HUD, and chrome
+src/lib/game/             state, engine, input, and sound
+public/models/            CC0 model packs
+```
